@@ -6,7 +6,6 @@ import {
     CssBaseline,
     AppBar as MuiAppBar,
     Toolbar,
-    Typography,
     IconButton,
     Drawer as MuiDrawer,
     List,
@@ -24,10 +23,8 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AuthButton from './AuthButton';
-import Logo from '../assets/Gsynergy Logo V2 Long Description.svg';
-
+import Logo from '../assets/GsynergyLogoV2LongDescription.svg';
 const drawerWidth = 240;
-
 const openedMixin = (theme: Theme): CSSObject => ({
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -36,7 +33,6 @@ const openedMixin = (theme: Theme): CSSObject => ({
     }),
     overflowX: 'hidden',
 });
-
 const closedMixin = (theme: Theme): CSSObject => ({
     transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
@@ -48,7 +44,6 @@ const closedMixin = (theme: Theme): CSSObject => ({
         width: `calc(${theme.spacing(8)} + 1px)`,
     },
 });
-
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })<{ open?: boolean }>(({ theme, open }) => ({
@@ -67,7 +62,6 @@ const AppBar = styled(MuiAppBar, {
         }),
     }),
 }));
-
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         width: drawerWidth,
@@ -84,15 +78,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         }),
     })
 );
-
 const MainLayout: React.FC = () => {
     // const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const location = useLocation();
-
     const handleDrawerOpen = () => setOpen(true);
     const handleDrawerClose = () => setOpen(false);
-
     // Define navigation items
     const navItems = [
         { text: 'Home', icon: <HomeIcon />, path: '/' },
@@ -101,7 +92,6 @@ const MainLayout: React.FC = () => {
         { text: 'Planning', icon: <CalendarTodayIcon />, path: '/planning' },
         { text: 'Chart', icon: <BarChartIcon />, path: '/chart' },
     ];
-
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -119,11 +109,10 @@ const MainLayout: React.FC = () => {
                     {/* Use the SVG logo instead of text */}
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <img src={Logo} alt="GSynergy Logo" style={{ height: 40, marginRight: 8 }} />
-                        <Typography variant="h6" noWrap component="div">
-                            GSynergy
-                        </Typography>
                     </Box>
-                    <Box sx={{ flexGrow: 1 }} />
+                    <Box sx={{ flexGrow: 1.5 }} />
+                    <h2>Data Viewer App</h2>
+                    <Box sx={{ flexGrow: 2 }} />
                     <AuthButton />
                 </Toolbar>
             </AppBar>
@@ -156,5 +145,4 @@ const MainLayout: React.FC = () => {
         </Box>
     );
 };
-
 export default MainLayout;

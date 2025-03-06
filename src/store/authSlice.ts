@@ -1,20 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { User, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
-
 interface AuthState {
     user: User | null;
     loading: boolean;
     error: string | null;
 }
-
 const initialState: AuthState = {
     user: null,
     loading: false,
     error: null,
 };
 
-// Async thunk for signing in
 export const signIn = createAsyncThunk('auth/signIn', async (_, { rejectWithValue }) => {
     try {
         const provider = new GoogleAuthProvider();
@@ -25,7 +22,6 @@ export const signIn = createAsyncThunk('auth/signIn', async (_, { rejectWithValu
     }
 });
 
-// Async thunk for signing out
 export const signOutUser = createAsyncThunk('auth/signOutUser', async (_, { rejectWithValue }) => {
     try {
         await signOut(auth);
@@ -34,7 +30,6 @@ export const signOutUser = createAsyncThunk('auth/signOutUser', async (_, { reje
         return rejectWithValue(error.message);
     }
 });
-
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -45,7 +40,6 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // signIn cases
             .addCase(signIn.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -58,7 +52,6 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload as string;
             })
-            // signOut cases
             .addCase(signOutUser.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -73,6 +66,5 @@ const authSlice = createSlice({
             });
     },
 });
-
 export const { setUser } = authSlice.actions;
 export default authSlice.reducer;
