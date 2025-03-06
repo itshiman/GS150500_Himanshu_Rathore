@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-function App() {
+import HomePage from './pages/HomePage';
+import StoresPage from './pages/StoresPage';
+import SKUsPage from './pages/SKUsPage';
+import PlanningPage from './pages/PlanningPage';
+import ChartPage from './pages/ChartPage';
+import NotFoundPage from './pages/NotFoundPage';
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/stores" element={<StoresPage />} />
+        <Route path="/skus" element={<SKUsPage />} />
+        <Route path="/planning" element={<PlanningPage />} />
+        <Route path="/chart" element={<ChartPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
