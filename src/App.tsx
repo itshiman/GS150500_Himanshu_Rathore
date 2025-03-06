@@ -7,17 +7,43 @@ import SKUsPage from './pages/SKUsPage';
 import PlanningPage from './pages/PlanningPage';
 import ChartPage from './pages/ChartPage';
 import NotFoundPage from './pages/NotFoundPage';
+import MainLayout from './components/MainLayout';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/stores" element={<StoresPage />} />
-        <Route path="/skus" element={<SKUsPage />} />
-        <Route path="/planning" element={<PlanningPage />} />
-        <Route path="/chart" element={<ChartPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route element={<MainLayout />}>
+          <Route path="/" element={
+            <HomePage />
+          } />
+          <Route path="/stores" element={
+            <ProtectedRoute>
+              <StoresPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/skus" element={
+            <ProtectedRoute>
+              <SKUsPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/planning" element={
+            <ProtectedRoute>
+              <PlanningPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/chart" element={
+            <ProtectedRoute>
+              <ChartPage />
+            </ProtectedRoute>
+          } />
+        </Route>
+        <Route path="*" element={
+          <ProtectedRoute>
+            <NotFoundPage />
+          </ProtectedRoute>
+        } />
       </Routes>
     </Router>
   );
