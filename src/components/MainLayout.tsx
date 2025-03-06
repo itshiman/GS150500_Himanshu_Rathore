@@ -24,6 +24,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AuthButton from './AuthButton';
+import Logo from '../assets/Gsynergy Logo V2 Long Description.svg';
 
 const drawerWidth = 240;
 
@@ -52,6 +53,7 @@ const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })<{ open?: boolean }>(({ theme, open }) => ({
     zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: '#333333', // Updated custom color (dark gray)
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -84,16 +86,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 const MainLayout: React.FC = () => {
+    // const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const location = useLocation();
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+    const handleDrawerOpen = () => setOpen(true);
+    const handleDrawerClose = () => setOpen(false);
 
     // Define navigation items
     const navItems = [
@@ -114,17 +112,17 @@ const MainLayout: React.FC = () => {
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
                         edge="start"
-                        sx={{
-                            marginRight: 5,
-                            ...(open && { display: 'none' }),
-                        }}
+                        sx={{ marginRight: 5, ...(open && { display: 'none' }) }}
                     >
                         <MenuIcon />
                     </IconButton>
-                    {/* Company Logo - Replace with your logo image if available */}
-                    <Typography variant="h6" noWrap component="div">
-                        GSynergy
-                    </Typography>
+                    {/* Use the SVG logo instead of text */}
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <img src={Logo} alt="GSynergy Logo" style={{ height: 40, marginRight: 8 }} />
+                        <Typography variant="h6" noWrap component="div">
+                            GSynergy
+                        </Typography>
+                    </Box>
                     <Box sx={{ flexGrow: 1 }} />
                     <AuthButton />
                 </Toolbar>
@@ -153,7 +151,6 @@ const MainLayout: React.FC = () => {
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <Toolbar />
-                {/* Render the routed page content */}
                 <Outlet />
             </Box>
         </Box>
